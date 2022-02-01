@@ -63,7 +63,7 @@ func write(links []Link, contentIndex ContentIndex, toIndex bool, out string) er
 
 func hashPath(path string, prefix string) (string) {
 	if strings.HasPrefix(path, prefix) == true {
-		path = fmt.Sprintf("%s%x", prefix, md5.Sum([]byte(s)));
+		path = fmt.Sprintf("%s%x", prefix, md5.Sum([]byte(path)));
 	}
 	return path
 }
@@ -81,7 +81,7 @@ func index(links []Link) (index Index) {
 	linkMap := make(map[string][]Link)
 	backlinkMap := make(map[string][]Link)
 	for _, l := range links {
-		l = hashLink(l)
+		l := hashLink(l)
 		// backlink (only if internal)
 		if _, ok := backlinkMap[l.Target]; ok {
 			backlinkMap[l.Target] = append(backlinkMap[l.Target], l)
